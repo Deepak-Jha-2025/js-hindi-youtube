@@ -36,3 +36,33 @@ let myFunction = function(){
 console.log(typeof myObj);
 
 // https://262.ecma-international.org/5.1/#sec-11.4.3
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Stack (Primitive), Heap (Non-primitive)
+// Stack mem use => gives a copy of the declared var
+// Heap mem use  => gives a reference of the declared variable's memory address
+
+let myYoutubeName = "hiteshchoudharydotcom"
+
+let anotherName = myYoutubeName
+anotherName = "chaiaurcode"
+
+console.log(myYoutubeName)
+console.log(anotherName)
+
+let userOne = {
+    email: "user@google.com",
+    upi: "user@ybl"
+}
+
+let userTwo = userOne
+
+userTwo.email = "hitesh@google.com"
+
+console.log(userOne.email)
+console.log(userTwo.email)
+
+// https://excalidraw.com/#json=aZtaeO-vfd95NbBak_Enq,rw1rVWHr70-MjgBn6apWEQ
