@@ -59,10 +59,51 @@ const users = [
 ]
 
 users[1].email
-console.log(tinderUser);
+// console.log(tinderUser);
 
-console.log(Object.keys(tinderUser))    // o/p type is array
-console.log(Object.values(tinderUser))  // o/p type is array
-console.log(Object.entries(tinderUser)) // o/p type is array of arrays
+// console.log(Object.keys(tinderUser))    // o/p type is array
+// console.log(Object.values(tinderUser))  // o/p type is array
+// console.log(Object.entries(tinderUser)) // o/p type is array of arrays
 
-console.log(tinderUser.hasOwnProperty('isLoggedIn'));
+// console.log(tinderUser.hasOwnProperty('isLoggedIn'));
+
+
+
+// ************************  de-structuring(of obj) *****************************
+
+const course = {
+    coursename: "js in hindi",
+    price: "999",
+    courseInstructor: "hitesh"
+}
+
+// console.log(course.courseInstructor);
+
+// Instead of repeatedly writing the above using dot operator, we can destructure that obj as:
+// const {courseInstructor} = course
+const {courseInstructor: instructor} = course
+
+console.log(instructor)
+
+
+// API intro
+
+// The below obj without a name is a JSON. Previously, values from the backend used to return as XML 
+// structure (complex), now they're returned as JSON (in here, both keys and values should be strings)
+// {
+//     "name": "hitesh",
+//     "coursename": "js in hindi",
+//     "price": "free"
+// }
+
+// Basically, we use fetch() method in js/api to call some url, in response we'll get 
+// JSON data in the api. Then, we'll convert it into obj and extract each value.
+
+
+// Sometimes, we'll also get APIs in array format (not necessarily always obj)
+// consisting of objects
+[
+    {},
+    {},
+    {}
+]
