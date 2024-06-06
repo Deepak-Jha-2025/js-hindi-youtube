@@ -27,13 +27,66 @@ if(true) {
     let a = 10   // follows the 'block scope' restriction/rule
     const b = 20 // follows the 'block scope' restriction/rule
 
-    console.log("Inner: ", a);
+    // console.log("Inner: ", a);
 
     // var c = 30   // does not follow the 'block scope' rule --> it can be accessed even outside this scope though it is declared inside
     // c = 30       // same problem as above, whether we write var or not. 
 }
 
-console.log(a); // gives error 'a not defined' since beyond scope
+// console.log(a); // gives error 'a not defined' since beyond scope
 // console.log(b); // gives error 'b not defined' since beyond scope
 
 // console.log(c);    // prints 30
+
+
+
+// ******************************** Nested Scope ************************************
+function one() {
+    const username = "hitesh"
+
+    function two() {
+        const website = "youtube"
+        // console.log(username)
+    }
+    // console.log(website); // gives error since website is beyond the block scope of two() where it's declared
+
+    two()
+}
+
+one()
+
+/* Everytime we declare and call a function, a separate call-stack/scope is formed for them.
+   In case of nested functions/scopes, the child function is able to access the variables of the
+   parent function.
+ */
+
+if(true) {
+    const username = "hitesh"
+    if(username === "hitesh") {
+        const website = " youtube"
+        // console.log(username + website);
+    }
+    // console.log(website); // error
+}
+// console.log(username); // error
+
+
+
+// +++++++++++++++++++++++ interesting +++++++++++++++++++++++
+
+// Basic function
+
+addOne(5) // can be called before the declaration b/z here simply declaration is there
+
+function addOne(num) {
+    return num + 1
+}
+
+
+// Expression (like a variable holidng a function instead of a value)
+
+addTwo(5) // can'te be called before the declaration b/z here along with declaration, we're holding the value in a variable too, so can't access it before declaration. This is called "hoisting".
+
+const addTwo = function (num) {
+    return num + 2
+}
