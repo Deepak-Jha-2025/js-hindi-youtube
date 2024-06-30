@@ -25,7 +25,7 @@ global scope, we don't want that as well. So, to remove that pollution, we use I
 
 // ()(); --> 1st paranthesis: enclose the func definition to be executed here; 2nd parenthesis is given for its execution call 
 // and a semi-colon at the end is needed b/z IIFE get invoked but don't know where to end the context, so to end 
-// it we pur a ; explicitly at last, else the upcoming IIFE after that will not get executed and error will occur.
+// it we put a ; explicitly at last, else the upcoming IIFE after that will not get executed and error will occur.
 
 // Without arguments
 
@@ -51,7 +51,7 @@ global scope, we don't want that as well. So, to remove that pollution, we use I
 */
 
 
-// For Execution Context: https://excalidraw.com/#json=Zu5tYmFD_OJZiGrVz9nOg,YLwAf3m2LdIyyfr0oWVK4g
+// For Execution Context: https://excalidraw.com/#json=MZ1r1uoJLIAuR7JixZHRm,IemZHlTTQxQgiqqzXFNNmA
 
 
 
