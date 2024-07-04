@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur <code></code></title>
+</head>
+<body style="background-color: #212121; color: #fff">
+    
+</body>
+<script>
+    // So, far we were only accessing the elements inside the document
+    // by using functions like getElementById, querySelector, etc. Now,
+    // we'll see how to create an element. 
+
+    // Now, How to programatically create a NodeList?
+
+    // 1. To create a div element
+    const div = document.createElement('div')
+    console.log(div);
+
+    // 2. Next, to add properties inside this div element like
+    // className, id. 
+    div.className = "main"
+    div.id = Math.round(Math.random() * 10 + 1)
+    div.setAttribute("title", 'generated title')
+    div.style.backgroundColor = "green"
+    div.style.padding = "12px"
+    
+    
+    // 3. Next, whatever we've set for the div element so far is 
+    // displayed on the console but not on the webpage, b/z this 
+    // created div is currently inside the memory, it will be displayed
+    // on the page when we attach that child(the div) to the document. 
+    
+    /* The .setAttribute() is preferred over directly setting any attribute 
+    directly like using .id, .className b/z using attribute using dot
+    1st selects and brings its value, then overwrites it. So, it takes
+    2 rounds of time, but the setAttribute() func does not select & bring 
+    the value, it directly overwrites it, saving 1 round of time, so it 
+    is more optimized.  */
+    
+    // div.innerText = "Chai aur code"
+    const addText = document.createTextNode("Chai aur code") 
+    // This is similar to setAttribute, here we're creating a textnode directly, not overwriting the innerText
+
+    // Now we'll add this textNode to the div
+    div.appendChild(addText)
+
+    
+    // Finally, attach this div(child) to the document
+    document.body.appendChild(div)
+
+    /*
+        Once this div is created and attached to the document, we can then wrap this logic into a function createNewDiv(), which can be given args accordingly, like "text" and "backgroundColor"
+
+        we can also give an array of texts or background colors and run it for say 5 times
+    */
+
+    
+
+</script>
+</html>

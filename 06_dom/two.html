@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | Chai aur Code</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    <div class="parent">
+        <!-- This comment counts as a nodelist and so do the line break before & after it. But 
+         consecutive line breaks b/w 2 elements don't count twice. -->
+        <div class="day">Monday</div>
+        <div class="day">Tuesday</div>
+        <div class="day">Wednesday</div>
+        <div class="day">Thursday</div>
+    </div>
+</body>
+<script>
+    // Target 1: Select the parent element and see what values does it contain
+    const parent = document.querySelector('.parent')
+    // console.log(parent);
+
+    // Selecting children through parents
+
+    // console.log(parent.children); // returns HTML collection
+    // console.log(parent.children[1].innerHTML); // array-like elements so [] and innerHTML properties can be used
+
+    // Now to iterate on the HTMLCollection, we can either convert it to array using Array.from() and use map()/forEach()
+    // or as it is already array-like, so the regular for-loop can also be used here.
+    // for (let i = 0; i < parent.children.length; i++) {
+    //    console.log(parent.children[i].innerHTML);
+    // }
+
+    parent.children[1].style.color = "orange"
+    // console.log(parent.firstElementChild);
+    // console.log(parent.lastElementChild);
+
+    
+    // Selecting parent from children
+    const dayOne = document.querySelector('.day'); // returns the 1st element/object in the doc with the class attribute = "day"
+    // console.log(dayOne);
+
+    /* Now suppose dayOne is already a variable availabe to us, and we want to access its parent, then we won't be using
+       querySelector() again and again, as it's not an easy operation, it's expensive in terms of time taken. After all, 
+       the entire DOM is a tree structure and ultimatly we're traversing the entire tree. So, we don't want to traverse 
+       the entire tree again. 
+       
+       Rather, directly we can go the parent from a given child. */
+    // console.log(dayOne.parentElement);
+    // console.log(dayOne.nextElementSibling);
+
+    console.log(parent.childNodes);
+    /* This .childNodes gives a NodeList of all the child Nodes (which is a complex tree structure). This DOM
+       is a tree-structure, where each thing has its importance. 
+       
+       1. 1st, we've given a line break after the div element with parent class. That line break/enter key/new line 
+          is also a text node element. Similarly every line break following subsequent div elements are nodes as well.  
+          
+       2. 2nd, the text content inside each element is also a text node.
+       
+       3. A nodelist is a collection of document nodes which includes text nodes , attribute nodes and element nodes. 
+          A line break is also counted in nodelist but  if there are multiple ine breakes simultaneously or right after
+          same node than they are ignored */
+
+</script>
+</html>
