@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur code | DOM</title>
+</head>
+<body style="background-color: #212121; color: #fff">
+    <ul class="language">
+        <li>Javascript</li>
+    </ul>
+</body>
+<script>
+    // Adding new elements in DOM
+    // Now our target is to another list item in the <ul>
+
+    // Method-1: using a function addLang that takes langName (text) as arg
+    function addLanguage(langName) {
+        // Step 1: Create a list item <li> (this will be created in memory, to display on webpage attach it to the doc)
+        const li = document.createElement('li')
+
+        // Step 2: Add the value langName in <li> (this step causes the
+        // unnecessary long tree traversal)
+        // li.innerHTML = langName
+        li.innerHTML = `${langName}` // the tree traversal happens in search of the inner HTMl
+        
+        // Step 3: Select the <ul class="language">
+        // const ul = document.querySelector('.language') 
+        
+        // Step 4: Append the new <li> into this selected <ul>
+        // ul.appendChild(li)
+        document.querySelector('.language').appendChild(li)
+    }
+
+    /*
+        Optimization Issue with above approach: Everytime we add a new list item  
+        (or say any other element) here, it has to traverse the entire tree 
+        structure of the document. Here, we just had 1 item initially, so no  
+        issue, but if we have too many items already, then we've to traverse all  
+        those values only to append at the very end. 
+    */
+
+    addLanguage("python")
+    addLanguage("typescript")
+
+    // Method-2: Optimized way of adding, 
+    function addOptiLanguage(langName) {
+        // Step 1: Create a list item <li>
+        const li = document.createElement('li')
+
+        // Step 2(different): instead of adding the value to the innerHTML
+        // (which takes 2 rounds of time), we directly create a textNode with 
+        // langName val and append it as a child to the <li>
+        
+        // const addText = document.createTextNode(langName)
+        // li.appendChild(addText)
+        li.appendChild(document.createTextNode(langName))
+
+        // Step-3: Select the <ul> (parent) and append the new <li> (child)
+        document.querySelector('.language').appendChild(li)
+    }
+
+    addOptiLanguage('golang')
+
+
+    // Editing the existing elements in DOM
+
+    // Step 1: select the element to be edited
+    const secondLang = document.querySelector("li:nth-child(2)") // selects the li which is the 2nd child
+
+    // Step 2: edit the selected element
+    // secondLang.innerHTML = "Mojo" // causes traversals, so takes time
+    
+    const newli = document.createElement('li')
+    // newli.appendChild(document.createTextNode("Mojo"))
+    newli.textContent = "Mojo"
+    secondLang.replaceWith(newli)
+
+    // edit (replace Javascript with Typescript)
+    const firstLang = document.querySelector('li:first-child')
+    // firstLang.innerHTML = 'Typescript'
+    // firstLang.outerHTML = '<li>Typescript</li>'
+
+    const newli1 = document.createElement('li')
+    // newli1.textContent = "Typescript"
+    newli1.appendChild(document.createTextNode("Typescript"))
+    firstLang.replaceWith(newli1)
+
+
+    // Remove existing elements in DOM
+    const lastLang = document.querySelector('li:last-child')
+    lastLang.remove()
+
+</script>
+</html>
