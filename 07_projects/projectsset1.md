@@ -123,3 +123,49 @@ form.addEventListener('submit', function (e) {
 
 
 ```
+
+
+## project 3 solution
+
+```javascript 
+// 1st, select the clock to display the time
+
+// const clock = document.querySelector('#clock')
+const clock = document.getElementById('clock');
+
+
+/* 
+  Now, we've to display a digital clock, so it has to change every sec.
+*/
+
+// let date = new Date()
+// console.log(date.toLocaleTimeString())
+
+/* The issue with the code below is that the time displays on the console
+   not the webpage, and everytime we refresh the page, then only the time 
+   updates. But the timer has to update automatically and forever keep on 
+   running without the need to refresh everytime. 
+   
+   Now, such a method exists in javascript that runs at every moment, or 
+   maybe after certain interval of time, say 2-3s.
+   
+   There is a method setInterval() method which controls the events in JS.
+   Just give it a method, and a interval after which it will continuously
+   go on running that method till the program ends/till the script gets 
+   over. */
+
+
+// Now, the time will be printed on the console after every 1 sec
+setInterval(function () {
+  let date = new Date()
+  // console.log(date.toLocaleTimeString())
+
+  /* Now, rather than printing on the console, we have to update 
+     the node (of the clock div) of the document every sec */
+  clock.innerHTML = date.toLocaleTimeString()
+
+}, 1000) // time is in milli-sec
+
+
+
+```
