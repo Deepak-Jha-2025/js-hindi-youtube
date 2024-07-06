@@ -169,3 +169,151 @@ setInterval(function () {
 
 
 ```
+
+## project 4 solution
+
+```javascript
+/*
+  1. Input a number and submit it, evaluate it whether it's correct or wrong
+  2. Keep storing the previous guesses (in array) and display it to the
+     user 
+  3. After every submit-click, decrement the guesses remaining.
+  4. Game over when attempts left = 0
+*/
+
+// 1st task: generate a random no. from 1 to 100 (both inclusive)
+let randomNumber = parseInt(Math.random() * 100 + 1);
+
+// 2nd task: select the submit button as this is where our events will
+// occur, so we've to use a event listener on it
+const submit = document.querySelector('#subt');
+
+// 3rd task: take user input from the guessField input
+const userInput = document.querySelector('#guessField');
+
+// Similarly, store previous guesses and guesses remaining
+const guessSlot = document.querySelector('.guesses');
+const remaining = document.querySelector('.lastResult');
+
+const lowOrHi = document.querySelector('.lowOrHi');
+const startOver = document.querySelector('.resultParas');
+
+// to insert some values, create a <p>
+const p = document.createElement('p');
+
+/* This will be an empty array to store the prev values submitted by the user and display the entire array to the user so that they don't guess 
+the same value again */
+let prevGuess = [];
+
+// to count his no. of attempts, once it reaches = 10, disable the submit
+// button
+let numGuess = 1;
+
+// To allow us to play the game
+/* There is always such a variable while designing games, like suppose
+   our events are over, or coins are finished, then without checking
+   this variable the game does not proceed any further */
+let playGame = true;
+
+// check if we can play the game
+if(playGame) {
+  // add event listener on the submit button
+  submit.addEventListener('click', function (e) {
+    e.preventDefault()
+    const guess = userInput.value // take the value from the input field
+    console.log(guess)
+    validateGuess(guess) // pass it to the next function for validation
+  })
+}
+
+function validateGuess(guess) {
+  // to validate the input guess
+  if(isNaN(guess)) {
+    alert('Please enter a valid number')
+  } else if(guess < 1) {
+    alert('Please enter a number more than 1')
+  } else if(guess > 100) {
+    alert('Please enter a number less than 100')
+  } else {
+    // if no. is valid, push it into the prevGuess arr
+    prevGuess.push(guess)
+
+    // check if no attempts left
+    if(numGuess === 11) {
+      displayGuess(guess)
+      displayMessage(`Game over. Random number was ${randomNumber}`)
+      endGame()
+    } else {
+      displayGuess(guess)
+      checkGuess(guess)
+    }
+  }
+}
+
+function checkGuess(guess) {
+  // to print the message whether correct or low or high
+  if(guess === randomNumber) {
+    displayMessage(`You guessed it right`)
+    endGame()
+  } else if(guess < randomNumber) {
+    displayMessage(`Number is too low`)
+  } else if(guess > randomNumber) {
+    displayMessage(`Number is too high`)
+  }
+}
+
+function displayGuess(guess) {
+  // all the dom manipulation occurs here
+  // it will clean the value, to take the next input value
+  userInput.value = ''
+  
+  // updates the guess slot from the prevGuess array
+  guessSlot.innerHTML += `${guess}, `
+  // update the numGuess, i.e. attempts left
+  numGuess++
+  remaining.innerHTML = `${11 - numGuess}`
+}
+
+function displayMessage(message) {
+  // all the dom manipulation occurs here
+  lowOrHi.innerHTML = `<h2>${message}</h2>`
+}
+
+function endGame() {
+  // to end the current game
+
+  /* To end the game, a button must be pressed */
+  userInput.value = '' // clean the input value
+  
+  // user must not be able to input any more value
+  userInput.setAttribute('disabled', '')
+
+  p.classList.add('button') // now the p behaves as a button
+  p.innerHTML = `<h2 id="newGame">Start new Game</h2>`
+
+  startOver.appendChild(p) // adds the new game button in the resultParas div
+  playGame = false
+  newGame()
+}
+
+function newGame() {
+  // to start a new game
+  const newGameButton = document.querySelector('#newGame')
+  newGameButton.addEventListener('click', function(e) {
+    // here all we need to do is just reset the variables
+    randomNumber = parseInt(Math.random() * 100 + 1);
+    prevGuess = []
+    numGuess = 1
+    guessSlot.innerHTML = ''
+    remaining.innerHTML = `${11 - numGuess}`
+    userInput.removeAttribute('disabled')
+    startOver.removeChild(p)
+
+    playGame = true // before allowing the user to play again, resut all variables first
+  })
+}
+
+
+
+
+```
