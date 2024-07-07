@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html Events</title>
+</head>
+
+<body style="background-color: #414141; color: aliceblue;">
+    <h2>Amazing image</h2>
+    <div>
+        <ul id="images">
+            <li><img width="200px" id="photoshop"
+                    src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt="photoshop"></li>
+
+            <li><img width="200px" id="japan"
+                    src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt=""></li>
+
+            <li><img width="200px" id="river"
+                    src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt=""></li>
+
+            <li><img width="200px" id="owl"
+                    src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt=""></li>
+
+            <li><img width="200px" id="prayer"
+                    src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt=""></li>
+
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    /*
+        All events in Js run sequentially (i.e. Js is a sequentially run lang). 
+        However, there are some exceptions, like Asynchronous programming, where
+        the syncrhonous/sequential order is deviated and then returned back.
+
+        One such exception are the browser events. These events invoke only upon
+        some activity, it's not like just b/z we wrote them sequentially in the 
+        file, so they'll just execute. They'll execute on some activity like
+        mouse moved, keyboard pressed, mouse pressed, drag n drop, etc. (Refer
+        events list)
+
+        Injecting any event directly in the html ele is not a feasible approach 
+        when it comes to scaling the application. (However, in react the code is 
+        actually scalable, when we directly inject onclick="" on the buttons)
+
+        Instead of that, we follow a 2nd approach:
+        1. select the element by id
+        2. apply an onclick event on that selected element
+        3. then describe what would happen upon that click using a function
+    */
+
+    // document.getElementById('owl').onclick = function () {
+    //     alert("owl clicked")
+    // }
+
+    /*
+         This approach has problems as well. When we're applying onclick event 
+         on the id element, then there may be some problems in that event b/z 
+         we don't get much information. So we should rather use Event Listeners.
+         That's b/z Event Listeners give us not just onclick functionality, but 
+         also propagation ability as well (in simple words, gives more features
+         whereas the onclick event gives less features)
+ 
+         So, the 3rd and best approach so far: 
+         1. select the elements by id/class/tag
+ 
+         2. add an event listener to it
+ 
+         3. event listener can listen to plenty of events like: keyboard events, 
+            mouse events, drag and drop
+ 
+         4. the 3rd parameter is false by default, so no need to explicitly pass it
+         
+         Another approach: attachEvent()
+         jQuery -> on() (directly .on())
+    */
+
+    /* 
+        Event object
+
+        Mostly, we'll get browser events and environment events (like position
+        where mouse clicked)
+        
+        // important events (self study)
+        // type, timestamp, defaultPrevented
+        // target, toElement, srcElement, currentTarget
+        // clientX, clientY, screenX, screenY
+        // altkey, ctrlkey, shiftkey, keyCode
+    */
+
+    // document.getElementById('owl').addEventListener('click', function (e) {
+    //     console.log(e);
+    // }, false)
+
+    /*
+        Event propagation : has 2 contexts - 
+        1. Event bubbling 
+        2. Event capturing
+
+        Mostly, event bubbling is used by default (i.e. false)
+    */
+
+    // document.getElementById('images').addEventListener('click', function (e) {
+    //     console.log("clicked inside the ul");
+    // }, false)
+
+    // document.getElementById('owl').addEventListener('click', function (e) {
+    //     console.log("owl clicked");
+    //     e.stopPropagation() // now this event won't bubble up to the outer event
+    // }, false)
+
+    /* 
+        When we click on the 'owl' id ele (which was inside the 'images'), then 
+        actually we're clicking on both as 'owl' is inside the 'images', so 'owl'
+        has 2 events attached to it.
+
+        Order:
+        'owl' clicl event -> 1st
+        'images' click event -> 2nd
+
+        This is how event propagates (bubbling up), from the innermost to the 
+        outermost. This is event bubbling. 
+
+        This happens when the 3rd arg is false
+
+        If it is true, then event propagation happens in capturing mode, which
+        happens from top to bottom (outermost to innermost)
+    */
+
+    // To avoid bubbling, and separate the inner and outer elements, 
+    // we use e.stopPropagation(), where e is the event captured
+
+    // document.getElementById('google').addEventListener('click', function (e) {
+    //     console.log("google clicked");
+    //     e.preventDefault(); // prevents the default action of the event captured
+    //     e.stopPropagation(); // stops bubbling up
+    // }, false)
+
+    // Trying to make an image (its entire <li>) disappear upon click
+    document.querySelector('#images').addEventListener('click', function(e){
+        console.log(e.target.tagName);
+
+        if (e.target.tagName === 'IMG') {
+            console.log(e.target.id);
+            let removeIt = e.target.parentNode
+            removeIt.remove() // removes the element
+            // removeIt.parentNode.removeChild(removeIt)
+        }
+
+    }, false)
+
+</script>
+
+</html>
