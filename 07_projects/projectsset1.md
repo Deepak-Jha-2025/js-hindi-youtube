@@ -313,7 +313,77 @@ function newGame() {
   })
 }
 
+```
 
+## project 5 solution
+
+```javascript
+const insert = document.getElementById('insert');
+
+window.addEventListener('keydown', (e) => {
+  insert.innerHTML = `
+    <div class="color">
+    <table>
+    <tr>
+      <th>Key</th>
+      <th>Keycode</th>
+      <th>Code</th>
+    </tr>
+    <tr>
+      <td>${e.key === ' ' ? 'Space' : e.key}</td>
+      <td>${e.keyCode}</td>
+      <td>${e.code}</td>
+    </tr>
+  </table>
+    </div>
+  `;
+});
+
+
+```
+
+## project 6 solution
+
+```javascript 
+// generate a random color
+
+const randomColor = function () {
+  const hex = '0123456789ABCDEF';
+  let color = '#'; // Then using += we'll put diff sets of values from hex and change colors
+
+  for (i = 0; i < 6; i++) {
+    color += hex[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+/*
+  this time we'll randomly generated indices from 0 to 15, so that randomly we can select any 6 characters from the hex string, and thus generate a random color everytime
+*/
+// console.log(Math.floor(Math.random() * 16))
+
+// Now, take ref. of star and stop button\
+let intervalId;
+const startChangingColor = function () {
+  // document.body.style.backgroundColor = randomColor() // happens only once, to automate it, we'll use setInterval
+
+  // if(intervalId == null) {
+  if (!intervalId) {
+    intervalId = setInterval(changeBgColor, 500);
+  }
+
+  function changeBgColor() {
+    document.body.style.backgroundColor = randomColor();
+  }
+};
+
+const stopChangingColor = function () {
+  clearInterval(intervalId);
+  intervalId = null; // flush out the intervalId once done, dereferencing the value
+};
+
+document.querySelector('#start').addEventListener('click', startChangingColor);
+document.querySelector('#stop').addEventListener('click', stopChangingColor);
 
 
 ```

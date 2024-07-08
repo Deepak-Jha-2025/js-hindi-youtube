@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chai aur code</h1>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    /*
+        functions like setTimeout() and setInterval() are not just core functions,
+        they are available through the browser (browser run-time env or some other 
+        APIS). We know in Js engine we have only the memory heap and the call stack,
+        but when these are called, then they go in the register call back in the 
+        web api/node api, then through task queue, we get its access again. 
+
+        Similarly, we have clearInterval() and clearTimeout()
+    */
+
+   /*
+       1st arg: handler is also a callback fnc (a fnc without a name
+       or ref to some fnc)
+
+       2nd arg: timeout in millisec
+
+       Executes the code in the callback after given timeout (executes only once)
+   */
+    const sayHitesh = function() {
+        console.log("Hitesh");
+    }
+
+    // document.querySelector('h1').innerHTML = "best JS Series" // executes immediately after writing
+
+    // to add a delay (i.e. async code or some sort of delay/condition)
+    const changeText = function() {
+        document.querySelector('h1').innerHTML = "best JS Series"
+    }
+
+    const changeMe = setTimeout(changeText, 2000) // it is a method but also an API
+
+    /*
+        Practical use case of setTimeout() is when we open any site and some 
+        sort of pop up comes, or some bar comes up from the top (like a nav bar)
+        regarding some events or discounts, etc.
+    */
+
+    /*
+        In case we want to stop the timeout from executing before the set time, we
+        can use clearTimeout.
+
+        arg: reference of the desired setTimeout() to stop
+        hold the ref. of the setTimeout() in some variable, then pass it.
+    */
+
+    // clearTimeout(changeMe) // removes the callback from the task queue
+
+    // applying direclly would do no effect, rather applying on some event seems practical
+    // this upon the click event on the stop button, would stop the setTimeout execution
+    document.querySelector('#stop').addEventListener('click', function() {
+        clearTimeout(changeMe)
+        console.log("STOPPED");
+    })
+
+
+    /*
+        setInterval()
+
+        1st arg: same
+        2nd arg: interval (keeps executing after every "interval" timeout)
+    */
+
+</script>
+</html>
