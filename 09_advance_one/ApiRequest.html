@@ -1,0 +1,78 @@
+<!-- 
+    Before the fetch() method was introduced recently, api request was done as:
+
+    We used to send XML HTTP request (XMLHttpRequest: refer MDN docs)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: #212121; color: #fff;">
+    0 UNSENT Client has been created. open() not called yet.<br>
+    1 OPENED open() has been called.<br>
+    2 HEADERS_RECEIVED send() has been called, and headers and status are available.<br>
+    3 LOADING Downloading; responseText holds partial data.<br>
+    4 DONE The operation is complete.<br>
+</body>
+<script>
+    // The XML request being send is called (AJAX request)
+
+    // 1st we make an object using the XMLHttpRequest() method
+    // Through this method, we can send and receive data
+
+    // This is almost equivalent to a class, so an object of this class is needed 
+    // (made using the new keyword) and store its ref in some variable
+    const xhr = new XMLHttpRequest()
+    
+    // open() method is used to send the API request
+    // takes 2 parameters: 
+    // 1. method: which means the type of request we want to send
+    // 2. requestURL: the url from where we're requesting the data/api which will come as an object
+    
+    const requestUrl = 'https://api.github.com/users/hiteshchoudhary'
+    // console.log(xhr.readyState); // state = 0 (UNSENt)
+    
+    xhr.open('GET', requestUrl)  // the request hasn't been sent yet
+    // console.log(xhr.readyState); // state = 1 (OPENED) b/z this state change happens synchronously
+    
+    // Open() is not called on its own, it needs .send() to be called 
+    xhr.send() // this initiates the request, open() had just set the prequisites (like method, url)
+    
+    // console.log(xhr.readyState); // prints state = 1 and not 2? b/z the state change happens asynchronously (for rest refer chatgpt)
+    
+    // Continuously tracking the state
+    // takes a function and executes it when state is changed continuously
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            // we get a response in return once the state = 4, i.e. the operatin is complete
+            // const data = this.responseText // currently, we're in context of xhr object, so this gives that current context of xhr obj
+            // console.log(data); 
+
+            // console.log(typeof data); // String: the datatype of response received from url is String most of the times, so accessing properties using dot operator would give undefined
+
+            // console.log(data.followers); // undefined
+
+            const data = JSON.parse(this.responseText) // parse converts string into JSON
+            console.log(typeof data);    // object
+            console.log(data.followers); // now the properties are accessible
+
+        }
+    }
+    
+    /*
+        As soon as we send request, it changes state continuously 
+        (refer:https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState)
+    */
+
+
+
+</script>
+
+</html>
