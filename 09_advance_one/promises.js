@@ -229,3 +229,9 @@ fetch('https://api.github.com/users/hiteshchoudhary')
     console.log(data)
 })
 .catch((error) => console.log(error)) // handles the error
+
+
+/*
+    Fetch() internal working explained: https://youtu.be/Rive84an6Lc?si=J92WQp6R6tADZrot (main working from 10th minute onwards)
+    Still, a short 18 minute video, if needed, quickly revise it before interview (either use excali draw or pen-paper then for quick notes)
+*/
