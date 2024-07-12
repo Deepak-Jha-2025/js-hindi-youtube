@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+<body>
+    <button>Button Clicked</button>
+</body>
+<script>
+    class React {
+        constructor() {
+            this.library = "React"
+            this.server = "http://localhost:300"
+
+            // requirement: as soon as this page loads, an object of this react class should be created
+            // 1. when that happens, we should get the ref of the button above
+            // 2. and there should be a method handleClick() which should give a message like : form submitted or button clicked
+
+            // const button = document.querySelector('button')
+            document.querySelector('button').addEventListener('click', this.handleClick.bind(this))
+
+            /*
+                outside the addEventListener function, 'this' context = app obj = React class obj
+
+                inside the addEventListener function, 'this' context = target element on which event occurs
+            */
+
+            // this.handleClick() // 'this' context = app object of class React
+        }
+
+        handleClick() {
+            console.log("button clicked");
+            console.log(this) // is line me 'this' woh hoga jo is method ko call karega
+        }
+    }
+
+    const app = new React() // as soon as the page loads, the script will load and an obj of React class will be created
+    // app.handleClick()
+    
+</script>
+</html>
