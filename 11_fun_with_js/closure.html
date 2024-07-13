@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure aur Chai</title>
+</head>
+
+<body style="background-color: #313131;">
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+</body>
+<script>
+    // Lexical Scoping
+
+    // function init() {
+    //     let name = "Mozilla"; // name is a local variable created by init
+    //     function displayName() {
+    //         // displayName() is the inner function, that forms the closure
+    //         console.log(name); // use variable declared in the parent function
+    //     }
+    //     displayName();
+    // }
+    // init();
+
+    // function outer () {
+    //     let username = "hitesh"
+
+    //     console.log('OUTER', secret)
+    //     function inner () {
+    //         let secret = 'my123'
+    //         console.log('inner', username);
+    //     }
+    //     function innerTwo () {
+    //         console.log('innerTwo', username);
+    //         console.log(secret)
+    //     }
+    //     inner()
+    //     innerTwo()
+    // }
+    // outer()
+    // console.log('TOO OUTER', username);
+
+
+    // Closure
+    function makeFunc() {
+        const name = "Mozilla";
+        function displayName() {
+            console.log(name);
+        }
+        return displayName; // returns the ref of the inner function
+    }
+
+    const myFunc = makeFunc(); // Now here, not just the ref/exec context of that inner fnc, but along with it (the entire shared memory
+    // or the outer fnc (if exists) as well) will be returned due to lexical scoping
+
+    // Although the EC/Scope of the outer makeFunc() is removed after its execution, then the role of memory ref comes into picture
+    // So, not just the execution context of the inner function but its entire lexical scope is returned
+    myFunc();
+
+
+</script>
+
+<script>
+    // Practical case
+    // document.getElementById('orange').onclick = function () {
+    //     document.body.style.backgroundColor = `orange`
+    // }
+    // document.getElementById('green').onclick = function () {
+    //     document.body.style.backgroundColor = `green`
+    // }
+
+    function clickHandler(color) {
+        // document.body.style.backgroundColor = `${color}`
+
+        return function () {
+            document.body.style.backgroundColor = `${color}`
+        }
+    }
+
+    // document.getElementById('orange').onclick = clickHandler // Simple ref won't work
+
+    // document.getElementById('orange').onclick = clickHandler('orange')  // Executing it will make the bg orange before clicking
+    // document.getElementById('green').onclick = clickHandler('green')    // Executing it will make the bg green before clicking
+
+    // The above doesn't work b/z onclick needs a function definition, not a fnc call, so we return the task as a fnc from the click handler 
+    // and we'll also have the access to the color outside the ref of that returned inner fnc due to closure & lexical scoping
+
+    document.getElementById('orange').onclick = clickHandler('orange')
+    document.getElementById('green').onclick = clickHandler('green')
+
+</script>
+
+</html>
